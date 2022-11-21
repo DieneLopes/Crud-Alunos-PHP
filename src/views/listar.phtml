@@ -1,0 +1,58 @@
+<h1>Pagina de listar</h1>
+
+<hr>
+
+<table class="container table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Matricula</th>
+            <th>Cidade</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+<?php
+    foreach ($alunos as $linha) {
+        $id = $linha['id'];
+
+        echo "<tr>
+            <td>{$linha['id']}</td>
+            <td>{$linha['nome']}</td>
+            <td>{$linha['matricula']}</td>
+            <td>{$linha['cidade']}</td>
+            <td>
+                <a href='/editar?id={$id}' class='btn btn-outline-warning'>Editar</a>
+                <a href='/excluir?id={$id}' class='btn btn-outline-danger'>Excluir</a>
+            </td>
+        </tr>";
+    }
+?>
+</table>
+<div class='modal fade' id='modalExcluir' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <h1 class='modal-title fs-5' id='exampleModalLabel'>EXCLUIR ALUNO</h1>
+                <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+            </div>
+            <div class='modal-body'>
+                DESEJA EXCLUIR ESTE ALUNO? (*Esta ação não pode ser revertida*)
+                <input type="hidden" id="idDoAluno">
+            </div>
+            <div class='modal-footer'>
+                <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cancelar</button>
+                <button type='button' onclick='excluirAlunoUnico()' class='btn btn-danger'>Excluir</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function salvarID(id){
+        document.getElementById("idDoAluno").value = id;
+    }
+    function excluirAlunoUnico(){
+            id= idDoAluno.value;
+            location.href = '/excluir?id='+id;
+    }
+</script>
